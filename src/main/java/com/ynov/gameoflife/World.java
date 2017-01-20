@@ -1,6 +1,10 @@
 package com.ynov.gameoflife;
 
+import com.ynov.gameoflife.cell.AliveCell;
 import com.ynov.gameoflife.cell.Cell;
+import com.ynov.gameoflife.cell.DeadCell;
+
+import java.util.Random;
 
 public class World {
     /*
@@ -25,7 +29,21 @@ public class World {
      * 			Tableau de cellule à deux dimensions representant le monde.
      */
     public World(Cell[][] world) {
-        this.map = world;
+        initMap(world, false);
+    }
+
+    /**
+     * Initialise un monde aléatoire avec une dimension spécifique. <br>
+     *
+     * @param nbColumn
+     * 			Nombre de colonnes dans le monde.
+     * @param nbRow
+     * 			Nombre de lignes dans le monde.
+     */
+    public World(int nbColumn, int nbRow) {
+        // Création d'une nouvelle map
+        Cell[][] world = new Cell[nbRow][nbColumn];
+        initMap(world, true);
     }
 
     /*
@@ -33,6 +51,50 @@ public class World {
 	 *		Méthodes
 	 * ---------------------------------
 	 */
+    /**
+     * Initialise la map passée en paramètre en la remplissant avec des données aléatoires si elle est vide.<br>
+     *
+     * @param map
+     * 			Map à initialiser.
+     * @param randomValues
+     * 			TRUE si la map doit être remplie avec des valeurs aléatoires, FALSE sinon.
+     */
+    private void initMap(Cell[][] map, boolean randomValues) {
+        if(randomValues) {
+            this.map = fillMapWithRandomCells(map);
+        } else {
+            this.map = map;
+        }
+
+        this.generation = 1;
+    }
+
+    /**
+     * Remplie une carte avec des cellules aléatoires. <br>
+     *
+     * @param map
+     * 			Map à remplir.
+     * @return Map remplie de cellules aléatoires.
+     */
+    private Cell[][] fillMapWithRandomCells(Cell[][] map) {
+        // Chaque ligne
+        for(int row = 0; row < map.length; row++) {
+            // Chaque colonne de la ligne
+            Cell[] columns = map[row];
+            for(int column = 0; column < columns.length; column++) {
+                // Valorise la case avec une cellule aléatoire
+                Random random = new Random();
+                if(random.nextBoolean()) {
+                    map[row][column] = new DeadCell();
+                } else {
+                    map[row][column] = new AliveCell();
+                }
+            }
+        }
+
+        return map;
+    }
+
     /**
      * Passe le monde dans un nouvel état (nouvelle génération). <br>
      */
