@@ -9,5 +9,9 @@ public class Launcher {
         World world = new World(pptMap);
         System.out.println(world);
 
+        for(int i=0; i<6; i++) {
+            world.newGeneration();
+            System.out.println(world);
+        }
     }
 }
