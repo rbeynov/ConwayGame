@@ -7,16 +7,19 @@ import java.util.Scanner;
 
 public class Launcher {
     public static void main(String[] args) {
+        int nbCol = 0, nbRow = 0;
 
         // Lecture nombre de colonnes
-        System.out.println("Please enter the number of columns of the world: ");
-        int nbCol = askUserForAnInteger();
-
+        while(nbCol == 0) {
+            System.out.println("Please enter the number of columns of the world: ");
+            nbCol = askUserForAnInteger();
+        }
 
         // Lecture nombre de lignes
-        System.out.println("\nPlease enter the number of rows of the world: ");
-        int nbRow = askUserForAnInteger();
-
+        while(nbRow == 0) {
+            System.out.println("\nPlease enter the number of rows of the world: ");
+            nbRow = askUserForAnInteger();
+        }
 
         System.out.println("---------- Exemple avec map aléatoire ----------");
         World randomWorld = new World(nbCol, nbRow);
