@@ -9,6 +9,20 @@ import java.util.Random;
 public class World {
     /*
 	 * ---------------------------------
+	 *		Constantes
+	 * ---------------------------------
+	 */
+    /** Nombre minimum de colonnes pour le monde. */
+    public static final int NB_MIN_COL = 3;
+    /** Nombre minimum de lignes pour le monde. */
+    public static final int NB_MIN_ROW = 3;
+    /** Nombre maximum de colonnes pour le monde. */
+    public static final int NB_MAX_COL = 10;
+    /** Nombre maximum de lignes pour le monde. */
+    public static final int NB_MAX_ROW = 10;
+
+    /*
+	 * ---------------------------------
 	 *		Propriétés
 	 * ---------------------------------
 	 */
@@ -41,6 +55,7 @@ public class World {
      * 			Nombre de lignes dans le monde.
      */
     public World(int nbColumn, int nbRow) {
+        checkDimensions(nbColumn, nbRow);
         // Création d'une nouvelle map
         Cell[][] world = new Cell[nbRow][nbColumn];
         initMap(world, true);
@@ -67,6 +82,23 @@ public class World {
         }
 
         this.generation = 1;
+    }
+
+    /**
+     * @param nbColumn
+     * 			Nombre de colonnes dans le monde.
+     * @param nbRow
+     * 			Nombre de lignes dans le monde.
+     */
+    private void checkDimensions(int nbColumn, int nbRow) {
+        boolean isTooTight = (nbRow < NB_MIN_ROW || nbColumn < NB_MIN_COL);
+        boolean isTooStretch = (nbRow > NB_MAX_ROW || nbColumn > NB_MAX_COL);
+
+        // Dimensions erronées
+        if(isTooTight || isTooStretch) {
+            String message = "La taille de la carte doit être comprise entre "+NB_MIN_ROW+"x"+NB_MIN_COL+" et "+NB_MAX_ROW+"x"+NB_MAX_COL+".";
+            throw new IllegalArgumentException(message);
+        }
     }
 
     /**
