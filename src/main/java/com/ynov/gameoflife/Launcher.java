@@ -44,9 +44,16 @@ public class Launcher {
      * 			Entier saisi par l'utilisateur.
      */
     private static int askUserForAnInteger() {
-        // Création d'un scanner pour lire les entrées sur l'entrée standard (console)
-        Scanner sc = new Scanner(System.in);
-        int readInt = sc.nextInt();
+        int readInt = 0;
+
+        try {
+            // Création d'un scanner pour lire les entrées sur l'entrée standard (console)
+            Scanner sc = new Scanner(System.in);
+            readInt = sc.nextInt();
+
+        } catch(InputMismatchException ime) {
+            System.err.println("L'entrée n'est pas entier.\n");
+        }
 
         return readInt;
     }
