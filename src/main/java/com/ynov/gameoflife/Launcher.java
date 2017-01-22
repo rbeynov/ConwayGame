@@ -7,17 +7,24 @@ import java.util.Scanner;
 
 public class Launcher {
     public static void main(String[] args) {
+
         int nbCol = 0, nbRow = 0;
 
         // Lecture nombre de colonnes
-        while(nbCol == 0) {
-            System.out.println("Please enter the number of columns of the world: ");
+        while(nbCol < World.NB_MIN_COL || nbCol > World.NB_MAX_COL) {
+
+            System.out.println("Please enter the number of columns " +
+                    "(between "+World.NB_MIN_COL+" and "+World.NB_MAX_COL+").");
+
             nbCol = askUserForAnInteger();
         }
 
         // Lecture nombre de lignes
-        while(nbRow == 0) {
-            System.out.println("\nPlease enter the number of rows of the world: ");
+        while(nbRow < World.NB_MIN_ROW || nbRow > World.NB_MAX_ROW) {
+
+            System.out.println("\nPlease enter the number of rows " +
+                    "(between "+World.NB_MIN_ROW+" and "+World.NB_MAX_ROW+").");
+
             nbRow = askUserForAnInteger();
         }
 
